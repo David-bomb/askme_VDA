@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="static/Bootstrap/css/bootstrap.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container">
+          <a class="navbar-brand" href="index.html">AskPupkin</a>
+
+            
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Ask</button>
+            </form>
+
+            <div class="d-flex gap-3 align-items-center">
+                    <a class="links__settings" href="#">Log in</a>
+                    <a class="links__logout ml-3" href="#">Register</a>
+            </div>
+            
+          
+        </div>
+      </nav>
+
+      <main class="container">
+        <div class="row mt-2">
+          <section class="col-8 vh-100">
+
+            <!-- Блок вопроса -->
+            <div class="row mt-4">
+                <div class="col-3">
+                    <div class="border" style="height: 200px;">
+                        <img src="#" alt="img" class="img-thumbnail">
+                    </div>
+                    <div class="mt-2" style="width: 100px;">
+                        <input type="number" class="form-control" value="5" disabled>
+                    </div>
+                </div>
+                
+                <div class="card col" style="border: 0px;">
+                      <h2 class="card-title">How to build a moon park?</h2>
+                      <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur, est! Quidem quibusdam cupiditate aliquam ad temporibus eius corporis nesciunt recusandae culpa! Deserunt architecto ea fuga voluptate aspernatur quas maiores qui!</p>
+                        <div class="right">
+                        <span>Tags:</span>
+                        <a href="#" class="card-link">black-jack</a>
+                        <a href="#" class="card-link">bender</a>
+                        </div>
+                </div>
+                <hr class="my-4">
+            </div>
+            
+            <!-- Карточки ответов -->
+            <div>
+                <div class="card mt-4" style="width: 52rem;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-2 m-2" >
+                                <div class=" border" style="height: 100px;">
+                                <img src="#" alt="img" class="img-thumbnail">
+                                </div>
+                                <div>
+                                    <input type="number" class="form-control" value="5" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <h3 class="card-title">Card title</h3>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <div class="row">
+                                <label style="font-size: 1.1pc;">
+                                    <input type="checkbox" class="form-check-input"> Correct!
+                                </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+              <div class="card mt-4" style="width: 52rem;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2 m-2" >
+                            <div class=" border" style="height: 100px;">
+                            <img src="#" alt="img" class="img-thumbnail">
+                            </div>
+                            <div>
+                                <input type="number" class="form-control" value="5" disabled>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <h3 class="card-title">Card title</h3>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <div class="row">
+                               <label style="font-size: 1.1pc;">
+                                <input type="checkbox" class="form-check-input"> Correct!
+                               </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+
+              <hr class="my-4">
+
+            </div>
+            <div>
+                <div class="mb-3">
+                    <textarea class="form-control" id="exampleFormControlInput1" placeholder="Enter your answer" rows="4"></textarea>
+                </div>
+                
+                <div>
+                    <button type="button" class="btn btn-secondary">Answer</button>
+                </div>
+            </div>
+              
+          </section>
+
+          <aside class="col-4 vh-100">
+            <section class="mt-5">
+                <h2>Popular tags</h3>
+                <div>
+                    <span class="badge text-bg-primary">Primary</span>
+                    <span class="badge text-bg-secondary">Secondary</span>
+                    <span class="badge text-bg-success">Success</span>
+                    <span class="badge text-bg-danger">Danger</span>
+                    <span class="badge text-bg-warning">Warning</span>
+                    <span class="badge text-bg-info">Info</span>
+                    <span class="badge text-bg-light">Light</span>
+                    <span class="badge text-bg-dark">Dark</span>
+                </div>
+            </section>
+            <section class="mt-5">
+                <h2>Best members:</h3>
+                <div>
+                    <a class="d-block mt-1" href="#">Member</a>
+                    <a class="d-block mt-1" href="#">Mememember</a>
+                    <a class="d-block mt-1" href="#">David</a>
+                    <a class="d-block mt-1" href="#">VK_admin</a>
+                    <a class="d-block mt-1" href="#">BMSTU_botanik</a>
+                </div>
+            </section>
+          </aside>
+        </div>
+      </main>
+    <script src="static/Bootstrap/js/bootstrap.bundle.js"></script>
+  </body>
+</html>

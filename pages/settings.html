@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="static/Bootstrap/css/bootstrap.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container">
+          <a class="navbar-brand" href="index.html">AskPupkin</a>
+
+            
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Ask</button>
+            </form>
+
+            <div class="d-flex gap-3 align-items-center">
+                <div class="account__image">
+                    <img  src="hello.jpg" alt="Account image">
+                </div>
+                <div class="account__block">
+                    <div class="account__name">Name</div>
+                    <div class="account__links d-flex gap-3">
+                        <a class="links__settings" href="#">Settings</a>
+                        <a class="links__logout" href="#">Log out</a>
+                    </div>
+                </div>
+              </div>
+            
+          
+        </div>
+      </nav>
+
+      <main class="container">
+        <div class="row mt-2">
+          <section class="col-8 vh-100">
+
+            <div class="d-flex align-items-center gap-3 mt-4">
+                <h1>Settings: Mr. Shubin</h1>
+            </div>
+
+            <div class="mt-4">
+                <div class="mb-3 row">
+                    <label for="staticLogin" class="col-sm-2 col-form-label">Login</label>
+                    <div class="col-sm-5">
+                    <textarea class="form-control" id="staticLogin" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-5">
+                        <textarea class="form-control" id="staticEmail" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="staticNickName" class="col-sm-2 col-form-label">NickName</label>
+                    <div class="col-sm-5">
+                        <textarea class="form-control" id="staticNickName" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Upload Avatar</label>
+                    <div class="col-sm-5">
+                        <div class=" border" style="height: 170px; width: 170px;">
+                            <img src="#" alt="img" class="img-thumbnail">
+                        </div>
+                        <div class="row">
+                            <div style="width: 200px;" class="col-7">
+                                <input class="form-control mt-3" type="text" value="C:\MeAtTheZoo.jpg" aria-label="Avatar path" disabled readonly>
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-outline-secondary mt-3">Browse</button>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-outline-secondary mt-3">Upload</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          </section>
+
+          <aside class="col-4 vh-100">
+            <section class="mt-5">
+                <h2>Popular tags</h3>
+                <div>
+                    <span class="badge text-bg-primary">Primary</span>
+                    <span class="badge text-bg-secondary">Secondary</span>
+                    <span class="badge text-bg-success">Success</span>
+                    <span class="badge text-bg-danger">Danger</span>
+                    <span class="badge text-bg-warning">Warning</span>
+                    <span class="badge text-bg-info">Info</span>
+                    <span class="badge text-bg-light">Light</span>
+                    <span class="badge text-bg-dark">Dark</span>
+                </div>
+            </section>
+            <section class="mt-5">
+                <h2>Best members:</h3>
+                <div>
+                    <a class="d-block mt-1" href="#">Member</a>
+                    <a class="d-block mt-1" href="#">Mememember</a>
+                    <a class="d-block mt-1" href="#">David</a>
+                    <a class="d-block mt-1" href="#">VK_admin</a>
+                    <a class="d-block mt-1" href="#">BMSTU_botanik</a>
+                </div>
+            </section>
+          </aside>
+        </div>
+      </main>
+    <script src="static/Bootstrap/js/bootstrap.bundle.js"></script>
+  </body>
+</html>

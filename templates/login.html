@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
-    <link href="static/Bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../static/Bootstrap/css/bootstrap.css" rel="stylesheet">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -31,11 +31,11 @@
           <section class="col-8 vh-100">
 
             <div class="d-flex align-items-center gap-3 mt-4">
-                <h1>Registration</h1>
+                <h1>Log in</h1>
             </div>
             
             <div>
-                <p style="color: red;" class="mt-2">Sorry, this email address already registrated!</p>
+                <p style="color: red;" class="mt-2">Sorry, wrong password!</p>
             </div>
 
             <form class="mt-4">
@@ -45,45 +45,16 @@
                     <input type="login" class="form-control" id="exampleInputLogin" aria-describedby="loginHelp">
                   </div>
                 </div>
-
-                <div class="mb-3 row">
-                    <label for="exampleInputEmail1" class="col-sm-2 col-form-label">Email address</label>
-                    <div class="col-sm-5">
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </div>
-                  </div>
-                
-                <div class="mb-3 row">
-                    <label for="exampleInputNickName" class="col-sm-2 col-form-label">NickName</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" id="exampleInputNickName" aria-describedby="nickNameHelp">
-                    </div>
-                  </div>
-
                 <div class="mb-3 row">
                   <label for="exampleInputPassword1" class="col-sm-2 col-form-label">Password</label>
                   <div class="col-sm-5">
                     <input type="password" class="form-control" id="exampleInputPassword1">
+                    <button type="button" class="btn btn-outline-secondary mt-3">Log in</button>
+                    <div class="mt-3">
+                        <a href="#">Create new account</a>
+                    </div>
                   </div>
                 </div>
-
-                <div class="mb-3 row">
-                    <label for="exampleInputPassword1" class="col-sm-2 col-form-label">Repeat password</label>
-                    <div class="col-sm-5">
-                      <input type="password" class="form-control" id="exampleInputPassword1">
-
-                      <div class="row">
-                        <div class="mt-3">
-                          <input class="form-control" type="file" id="formFile">
-                        </div>
-                        
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-outline-secondary mt-3">Upload</button>
-                    </div>
-
-                    </div>
-                  </div>
               </form>
 
           </section>
@@ -115,6 +86,6 @@
           </aside>
         </div>
       </main>
-    <script src="static/Bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../static/Bootstrap/js/bootstrap.bundle.js"></script>
   </body>
 </html>

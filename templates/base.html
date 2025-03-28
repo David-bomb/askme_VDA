@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
-    <link href="static/Bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../static/Bootstrap/css/bootstrap.css" rel="stylesheet">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -18,9 +18,17 @@
             </form>
 
             <div class="d-flex gap-3 align-items-center">
-                    <a class="links__settings" href="#">Log in</a>
-                    <a class="links__logout ml-3" href="#">Register</a>
-            </div>
+                <div class="account__image">
+                    <img  src="hello.jpg" alt="Account image">
+                </div>
+                <div class="account__block">
+                    <div class="account__name">Name</div>
+                    <div class="account__links d-flex gap-3">
+                        <a class="links__settings" href="#">Settings</a>
+                        <a class="links__logout" href="#">Log out</a>
+                    </div>
+                </div>
+              </div>
             
           
         </div>
@@ -30,39 +38,7 @@
         <div class="row mt-2">
           <section class="col-8 vh-100">
 
-            <!-- Секция с начинкой страницы -->
-
-            <div class="d-flex align-items-center gap-2 mb-3">
-                <h1>New Question</h1>
-            </div>
-
-            <p style="color: red; font-size: 1.3cp;">Whoops, an error!</p>
-
-            <div class="mb-2 row">
-                <label for="staticTitle" class="col-sm-2 col-form-label">Title</label>
-                <div class="col-sm-10">
-                  <textarea class="form-control" id="staticTitle" rows="1"></textarea>
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label for="staticText" class="col-sm-2 col-form-label">Text</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" id="staticText" rows="15"></textarea>
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label for="staticText" class="col-sm-2 col-form-label">Tags</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" id="staticText" rows="1"></textarea>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-2"></div>
-                <div class="col mt-4">
-                    <button type="button" class="btn btn-outline-secondary">Ask</button>
-                </div>
-            </div>
-            
+            <!-- Блок для нового кода -->
 
           </section>
 
@@ -93,6 +69,6 @@
           </aside>
         </div>
       </main>
-    <script src="static/Bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../static/Bootstrap/js/bootstrap.bundle.js"></script>
   </body>
 </html>

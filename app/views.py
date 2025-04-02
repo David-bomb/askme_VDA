@@ -7,7 +7,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-TAGS = ['math', 'IT', 'cooking', 'promting', 'electronics', 'laws', 'sport', 'health']
+TAGS = ['math', 'IT', 'cooking', 'promting', 'electronics', 'laws', 'sport', 'health', 'gaming', 'shopping']
 
 QUESTIONS = [
     {
@@ -23,23 +23,33 @@ QUESTIONS = [
     } for i in range(1, 20)
 ]
 
-TAGS = ['math', 'IT', 'cooking', 'promting', 'electronics', 'laws', 'sport', 'health', 'gaming', 'shopping']
+def pagination(request, elems_per_page, data):
+    try:
+        page_num = int(request.GET.get('page', 1))
+        paginator = Paginator(data, elems_per_page)
+        page = paginator.page(page_num)
+        return page
+    except Exception as e:
+        print(e)
+        paginator = Paginator(data, elems_per_page)
+        page = paginator.page(1)
+        return page
 
 def index(request):
-    page_num = int(request.GET.get('page', 1))
-    paginator = Paginator(QUESTIONS, 5)
-    page = paginator.page(page_num)
+    page = pagination(request, 5, QUESTIONS)
     return render(request, 'index.html', context={'questions': page.object_list, 'page_obj': page})
-    # return HttpResponse('Hello World!')
+
 
 def question(request, question_id):
-    return render(request, 'question.html', context={'question': QUESTIONS[question_id],
-                                                     'answers': QUESTIONS[question_id]['answers']})
+    page = pagination(request, 5, QUESTIONS[question_id]['answers'])
+    return render(request, 'question.html', context={
+        'question': QUESTIONS[question_id],
+        'answers': page.object_list,  # Use paginated answers
+        'page_obj': page  # Pass page_obj for pagination
+    })
 
 def hot(request):
-    page_num = int(request.GET.get('page', 1))
-    paginator = Paginator(QUESTIONS, 5)
-    page = paginator.page(page_num)
+    page = pagination(request, 5, QUESTIONS)
     return render(request, 'hot.html', context={'questions': page.object_list, 'page_obj': page})
     # return HttpResponse('Hello World!')
 
@@ -47,9 +57,7 @@ def ask(request):
     return render(request, 'ask.html')
 
 def tag(request, tag):
-    page_num = int(request.GET.get('page', 1))
-    paginator = Paginator(QUESTIONS, 5)
-    page = paginator.page(page_num)
+    page = pagination(request, 5, QUESTIONS)
     tag_questions = []
 
     for elem in QUESTIONS:

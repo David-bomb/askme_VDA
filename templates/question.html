@@ -42,14 +42,13 @@
             <!-- Карточки ответов -->
             <div>
                 {% for answer in answers %}
-                    {% include 'layouts/answer.html' %}
+                    {% include 'components/answer.html' %}
                 {% endfor %}
-{#                тут должен быть ответ а не вопрос TODO!#}
 
-              {% include 'layouts/pagination.html' %}
-
-              <hr class="my-4">
-
+                {% include 'components/pagination.html' %}
+                <!-- Ensure the correct page_obj is passed -->
+                
+                <hr class="my-4">
             </div>
             <div>
                 <div class="mb-3">
@@ -60,5 +59,6 @@
                     <button type="button" class="btn btn-secondary">Answer</button>
                 </div>
             </div>
+
 
 {% endblock %}

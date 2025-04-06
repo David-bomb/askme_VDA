@@ -24,11 +24,10 @@ class Command(BaseCommand):
         # 1. Пользователи и профили
         users = User.objects.bulk_create(
             [User(
-                username=fake.unique.user_name() + '_' + f'{fake.unique.random_int(min=1, max=ratio * 10)}',
+                username=fake.unique.user_name() + ' ' + f'{fake.unique.random_int(min=1, max=ratio * 10)}',
                 email=fake.unique.email(),
                 password=fake.password(),
-                first_name=fake.first_name(),
-                last_name=fake.last_name(),
+                first_name=fake.first_name() + ' ' + fake.last_name(), # вместо nickname
             ) for _ in range(ratio)],
             batch_size=1000
         )
@@ -38,7 +37,7 @@ class Command(BaseCommand):
 
         # 2. Теги
         tags = Tag.objects.bulk_create(
-            [Tag(name=fake.word() + '_' + f'{fake.unique.random_int(min=1, max=ratio * 10)}') for _ in range(ratio)],
+            [Tag(name=fake.word() + ' ' + f'{fake.unique.random_int(min=1, max=ratio * 10)}') for _ in range(ratio)],
             batch_size=1000, ignore_conflicts=True
         )
         tags = list(Tag.objects.all())
@@ -103,3 +102,5 @@ class Command(BaseCommand):
             answer_likes.extend([AnswerLike(user=user, answer=a) for a in liked_answers])
 
         AnswerLike.objects.bulk_create(answer_likes, batch_size=10000)
+
+        self.stdout.write(self.style.SUCCESS('База данных заполнена!'))

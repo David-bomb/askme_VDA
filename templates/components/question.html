@@ -20,7 +20,7 @@
                             </form>
                         </div>
                         <div style="padding-left: 0; border: 3px;" class="col">
-                            <p style="color: green; left: -10px; position: relative;">+4</p>
+                            <p style="color: green; left: -10px; position: relative;">{{ question.likes }}</p>
                         </div>
                     </div>
                 </div>
@@ -32,12 +32,12 @@
                     <p class="card-text">{{ question.text }}</p>
                     <div class="row">
                         <div class="col-3">
-                            <a class="card-link" href="{% url "question" question.id %}">Answer (3)</a>
+                            <a class="card-link" href="{% url "question" question.id %}">Answer ({{ question.answers.count }})</a>
                         </div>
                         <div class="col right">
                             <span>Tags:</span>
-                            {% for tag in question.tags %}
-                                <a href="{% url 'tag' tag %}" class="card-link"> {{ tag }}</a>
+                            {% for tag in question.tags.all %}
+                                <a href="{% url 'tag' tag.name %}" class="card-link"> {{ tag.name }}</a>
                             {% endfor %}
                         </div>
                     </div>

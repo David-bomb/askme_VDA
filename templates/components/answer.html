@@ -20,18 +20,15 @@
                             </form>
                         </div>
                         <div style="padding-left: 0; border: 3px;" class="col">
-                            <p style="color: green; left: -10px; position: relative;">+4</p>
+                            <p style="color: green; left: -10px; position: relative;">{{ answer.likes }}</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col">
-                    <h3 class="card-title">
-                        {{ answer.title }}
-                    </h3>
                     <p class="card-text">{{ answer.text }}</p>
-                    <form>
-                          <div class="mb-3 form-check">
+                    <form class="mb-4">
+                          <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck1">
                             <label class="form-check-label" for="exampleCheck1">Correct!</label>
                           </div>

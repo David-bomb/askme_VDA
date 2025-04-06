@@ -11,7 +11,7 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container">
-          <a class="navbar-brand" href="{% url 'index' %}">AskPupkin</a>
+          <a class="navbar-brand" href="{% url 'index' %}">Askme_VDA</a>
 
 
             <form class="d-flex" role="search">
@@ -46,44 +46,13 @@
             <section class="mt-5">
                 <h2>Popular tags</h2>
                 <div>
-                    <span class="badge text-bg-primary">
-                        <a href="{% url 'tag' 'math' %}" style="text-decoration: none; color: inherit;">math</a>
-                    </span>
-                    <span class="badge text-bg-secondary" >
-                        <a href="{% url 'tag' 'IT' %}" style="text-decoration: none; color: inherit;">
-                        IT
-                        </a>
-                    </span>
-                    <span class="badge text-bg-success">
-                        <a href="{% url 'tag' 'cooking' %}" style="text-decoration: none; color: inherit;">
-                        cooking
-                        </a>
-                    </span>
-                    <span class="badge text-bg-danger">
-                        <a href="{% url 'tag' 'promting' %}" style="text-decoration: none; color: inherit;">
-                        promting
-                        </a>
-                    </span>
-                    <span class="badge text-bg-warning">
-                        <a href="{% url 'tag' 'electronics' %}" style="text-decoration: none; color: inherit;">
-                        electronics
-                        </a>
-                    </span>
-                    <span class="badge text-bg-info">
-                        <a href="{% url 'tag' 'laws' %}" style="text-decoration: none; color: inherit;">
-                        laws
-                        </a>
-                    </span>
-                    <span class="badge text-bg-light">
-                        <a href="{% url 'tag' 'sport' %}" style="text-decoration: none; color: inherit;">
-                        sport
-                        </a>
-                    </span>
-                    <span class="badge text-bg-dark" href="{% url 'tag' 'health' %}">
-                        <a href="{% url 'tag' 'health' %}" style="text-decoration: none; color: inherit;">
-                        health
-                        </a>
-                    </span>
+                    {% for tag in popular_tags %}
+                        <span class="badge text-bg-primary">
+                            <a href="{% url 'tag' tag.name %}" style="text-decoration: none; color: inherit;">
+                                {{ tag.name }}
+                            </a>
+                        </span>
+                    {% endfor %}
                 </div>
             </section>
             <section class="mt-5">

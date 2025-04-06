@@ -31,8 +31,8 @@
                       <p class="card-text">{{ question.text }}</p>
                         <div class="right">
                         <span>Tags:</span>
-                            {% for tag in question.tags %}
-                                <a href="{% url 'tag' tag %}" class="card-link"> {{ tag }}</a>
+                            {% for tag in question.tags.all %}
+                                <a href="{% url 'tag' tag.name %}" class="card-link"> {{ tag.name }}</a>
                             {% endfor %}
                         </div>
                 </div>

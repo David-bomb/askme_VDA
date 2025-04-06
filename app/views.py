@@ -1,27 +1,8 @@
-from tkinter.messagebox import QUESTION
-
 from django.core.paginator import Paginator
-from django.shortcuts import HttpResponse
-
+from app.models import Profile, Question, Answer, Tag, QuestionLike, AnswerLike
 from django.shortcuts import render
 
 # Create your views here.
-
-TAGS = ['math', 'IT', 'cooking', 'promting', 'electronics', 'laws', 'sport', 'health', 'gaming', 'shopping']
-
-QUESTIONS = [
-    {
-        'title': f'Title {i}',
-        'id': i,
-        'text': f'I have {i} troubles!',
-        'tags': [TAGS[i % len(TAGS)], TAGS[(i + 1) % len(TAGS)]],
-        'answers': [{
-            'title': f'Answer {j} for question {i}',
-            'id': j,
-            'text': f'I have {j} answers!',
-        } for j in range(1, 10)],
-    } for i in range(1, 20)
-]
 
 def pagination(request, elems_per_page, data):
     try:
@@ -36,35 +17,33 @@ def pagination(request, elems_per_page, data):
         return page
 
 def index(request):
-    page = pagination(request, 5, QUESTIONS)
+    page = pagination(request, 5, Question.objects.all())
     return render(request, 'index.html', context={'questions': page.object_list, 'page_obj': page})
 
 
 def question(request, question_id):
-    page = pagination(request, 5, QUESTIONS[question_id]['answers'])
+    question_obj = Question.objects.get(id=question_id)
+    answers = question_obj.answers.all().order_by('-created_at')
+    page = pagination(request, 4, list(answers))
     return render(request, 'question.html', context={
-        'question': QUESTIONS[question_id],
+        'question': question_obj,
         'answers': page.object_list,  # Use paginated answers
         'page_obj': page  # Pass page_obj for pagination
     })
 
 def hot(request):
-    page = pagination(request, 5, QUESTIONS)
+    page = pagination(request, 5, Question.objects.best())
     return render(request, 'hot.html', context={'questions': page.object_list, 'page_obj': page})
-    # return HttpResponse('Hello World!')
 
 def ask(request):
     return render(request, 'ask.html')
 
 def tag(request, tag):
-    page = pagination(request, 5, QUESTIONS)
-    tag_questions = []
+    tag_obj = Tag.objects.get(name=tag)
+    questions = tag_obj.questions.all().order_by('-created_at')
+    page = pagination(request, 5, questions)
 
-    for elem in QUESTIONS:
-        if tag in elem['tags']:
-            tag_questions.append(elem)
-
-    return render(request, 'tag.html', context={'tag': tag, 'page_obj': page, 'questions': tag_questions})
+    return render(request, 'tag.html', context={'tag': tag, 'page_obj': page, 'questions': page.object_list})
 
 def login(request):
     return render(request, 'login.html')

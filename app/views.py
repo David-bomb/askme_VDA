@@ -10,7 +10,7 @@ def pagination(request, elems_per_page, data):
         paginator = Paginator(data, elems_per_page)
         page = paginator.page(page_num)
         return page
-    except Exception as e:
+    except Exception as e: #TODO слишком широко
         print(e)
         paginator = Paginator(data, elems_per_page)
         page = paginator.page(1)
@@ -46,7 +46,6 @@ def tag(request, tag):
     try:
         tag_obj = Tag.objects.get(name=tag)
     except Tag.DoesNotExist:
-        print(2424264729492864)
         return render(request, '404.html')
     questions = tag_obj.questions.all().order_by('-created_at')
     page = pagination(request, 5, questions)

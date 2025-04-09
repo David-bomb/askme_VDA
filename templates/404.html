@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Page Not Found</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static '/Bootstrap/css/bootstrap.css' %}">
+    <style>
+        .error-container {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .error-code {
+            font-size: 8rem;
+            font-weight: bold;
+            color: #dc3545;
+        }
+        .error-message {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 error-container">
+                <div class="error-content">
+                    <h1 class="error-code">404</h1>
+                    <p class="error-message">Oops! Страница не найдена</p>
+                    <p class="lead">Кажется, мы не можем найти то, что вы ищете.</p>
+                    <a href="/" class="btn btn-primary">Вернуться на главную</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional Bootstrap JS -->
+    <script src="{% static '/Bootstrap/js/bootstrap.bundle.js' %}"></script>
+</body>
+</html>

@@ -22,7 +22,10 @@ def index(request):
 
 
 def question(request, question_id):
-    question_obj = Question.objects.get(id=question_id)
+    try:
+        question_obj = Question.objects.get(id=question_id)
+    except Question.DoesNotExist:
+        return render(request, '404.html')
     answers = question_obj.answers.all().order_by('-created_at')
     page = pagination(request, 4, list(answers))
     return render(request, 'question.html', context={
@@ -39,10 +42,14 @@ def ask(request):
     return render(request, 'ask.html')
 
 def tag(request, tag):
-    tag_obj = Tag.objects.get(name=tag)
+    tag_obj = NotImplemented
+    try:
+        tag_obj = Tag.objects.get(name=tag)
+    except Tag.DoesNotExist:
+        print(2424264729492864)
+        return render(request, '404.html')
     questions = tag_obj.questions.all().order_by('-created_at')
     page = pagination(request, 5, questions)
-
     return render(request, 'tag.html', context={'tag': tag, 'page_obj': page, 'questions': page.object_list})
 
 def login(request):
@@ -53,3 +60,6 @@ def register(request):
 
 def settings(request):
     return render(request, 'settings.html')
+
+def Err404(request):
+    return render(request, '404.html')

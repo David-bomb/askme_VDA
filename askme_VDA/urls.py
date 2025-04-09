@@ -29,4 +29,5 @@ urlpatterns = [
     path('register', views.register, name='register'),
     path('tag/<str:tag>', views.tag, name='tag'),
     path('settings', views.settings, name='settings'),
+    path('404', views.Err404, name='404'),
 ]

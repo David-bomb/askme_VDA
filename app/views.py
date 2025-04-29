@@ -1,6 +1,12 @@
+from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.urls import reverse, reverse_lazy
+
+from app.forms import LoginForm, RegisterForm, SettingsForm
 from app.models import Profile, Question, Answer, Tag, QuestionLike, AnswerLike
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
 
 # Create your views here.
 
@@ -38,6 +44,7 @@ def hot(request):
     page = pagination(request, 5, Question.objects.best())
     return render(request, 'hot.html', context={'questions': page.object_list, 'page_obj': page})
 
+@login_required(login_url=reverse_lazy('login'))
 def ask(request):
     return render(request, 'ask.html')
 
@@ -52,13 +59,45 @@ def tag(request, tag):
     return render(request, 'tag.html', context={'tag': tag, 'page_obj': page, 'questions': page.object_list})
 
 def login(request):
-    return render(request, 'login.html')
+    form = LoginForm()
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = auth.authenticate(request, **form.cleaned_data)
+            if user:
+                auth.login(request, user)
+                return redirect(reverse('settings'))
+            else:
+                form.add_error(field =None, error="User not found")
+    return render(request, 'login.html', context={'form': form})
 
 def register(request):
-    return render(request, 'register.html')
+    form = RegisterForm()
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+    return render(request, 'register.html', context={'form': form})
 
+@login_required(login_url=reverse_lazy('login'))
 def settings(request):
-    return render(request, 'settings.html')
+    try:
+        profile = request.user.profile
+    except Profile.DoesNotExist:
+        raise AttributeError('Profile not found.')
+
+    form = SettingsForm()
+    if request.method == 'POST':
+        # form = SettingsForm(request.POST)
+        form = SettingsForm(request.POST, profile=profile)
+        if form.is_valid():
+            form.save()
+    return render(request, 'settings.html', context={'form': form})
+
+@login_required(login_url=reverse_lazy('login'))
+def logout(request):
+    auth.logout(request)
+    return redirect(reverse('index'))
 
 def Err404(request):
     return render(request, '404.html')

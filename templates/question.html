@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
-
+{% load bootstrap5 %}
 {% block content %}
 
             <!-- Блок вопроса -->
@@ -21,7 +21,7 @@
                           </form>
                       </div>
                       <div style="padding-left: 0; border: 3px;" class="col">
-                          <p style="color: green; left: -10px; position: relative;">+4</p>
+                          <p style="color: green; left: -10px; position: relative;">{{ question.likes }}</p>
                       </div>
                   </div>
                 </div>
@@ -50,15 +50,24 @@
                 
                 <hr class="my-4">
             </div>
-            <div>
-                <div class="mb-3">
-                    <textarea class="form-control" id="exampleFormControlInput1" placeholder="Enter your answer" rows="4"></textarea>
-                </div>
-                
-                <div>
-                    <button type="button" class="btn btn-secondary">Answer</button>
-                </div>
-            </div>
+            {% if is_authenticated %}
+                <form class="mt-4" method="POST">
+                    {% csrf_token %}
+                    {%  bootstrap_form form %}
+                    <div>
+                        <button type="submit" class="btn btn-secondary">Answer</button>
+                    </div>
+                <form>
+{#            <div>#}
+{#                <div class="mb-3">#}
+{#                    <textarea class="form-control" id="exampleFormControlInput1" placeholder="Enter your answer" rows="4"></textarea>#}
+{#                </div>#}
+{#                #}
+{#                <div>#}
+{#                    <button type="button" class="btn btn-secondary">Answer</button>#}
+{#                </div>#}
+{#            </div>#}
+            {% endif %}
 
 
 {% endblock %}

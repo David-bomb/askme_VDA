@@ -1,5 +1,7 @@
 from django import forms
-from app.models import Profile
+from django.db.models import CharField
+
+from app.models import Profile, Question, Answer
 from django.contrib.auth.models import User
 
 
@@ -75,6 +77,7 @@ class SettingsForm(forms.ModelForm):
         fields = ['avatar']
 
     def __init__(self, *args, **kwargs):
+        # profile = kwargs.pop('profile')
         super(SettingsForm, self).__init__(*args, **kwargs)
         # self.profile = kwargs['profile']
 
@@ -114,3 +117,21 @@ class SettingsForm(forms.ModelForm):
             profile.save()
 
         return profile
+
+class AskForm(forms.ModelForm):
+    tags = forms.CharField(required=False, help_text="Введите теги через пробел")
+
+    class Meta:
+        model = Question  # Указываем модель, к которой привязана форма
+        fields = ['title', 'text', 'tags']  # Поля модели для отображения
+
+    def clean_tags(self):
+        tags = self.cleaned_data.get('tags', '')
+        return [tag.strip() for tag in tags.split() if tag.strip()]
+
+class AnswerForm(forms.ModelForm):
+    text = forms.Textarea()
+
+    class Meta:
+        model = Answer
+        fields = ['text']

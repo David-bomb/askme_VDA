@@ -67,25 +67,29 @@ class RegisterForm(forms.ModelForm):
         return profile
 
 
-class SettingsForm(forms.ModelForm):
+class SettingsForm(forms.ModelForm): # TODO передать profile в форму
     login = forms.CharField()
     email = forms.EmailField()
     nickname = forms.CharField()
+
+    field_order = ['login', 'email', 'nickname', 'avatar']  # поле avatar теперь последним
 
     class Meta:
         model = Profile
         fields = ['avatar']
 
     def __init__(self, *args, **kwargs):
-        # profile = kwargs.pop('profile')
         super(SettingsForm, self).__init__(*args, **kwargs)
-        # self.profile = kwargs['profile']
+        self.fields['login'].initial = self.instance.user.username
+        self.fields['email'].initial = self.instance.user.email
+        self.fields['nickname'].initial = self.instance.user.first_name
+        # self.fields.move_to_end('avatar')
 
     # Проверка логина
     def clean_login(self):
         login = self.cleaned_data.get('login')
         current_login = self.instance.user.username
-        if login != self.instance.user.login:
+        if login != current_login:
             if User.objects.filter(username=login).exists() and login != current_login: # and login != user.login
                 self.add_error('login', "This login is already registered")
         return login
@@ -93,8 +97,8 @@ class SettingsForm(forms.ModelForm):
     # Проверка email
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        current_email = self.instance.user.username
-        if email != self.instance.user.email:
+        current_email = self.instance.user.email
+        if email != current_email:
             if User.objects.filter(email=email).exists() and email != current_email:# and email != user.email
                 self.add_error('email', "This email is already registered")
         return email
@@ -105,18 +109,15 @@ class SettingsForm(forms.ModelForm):
         return cleaned_data
 
     def save(self, commit=True):
-        user = User.objects.create_user(
-            username=self.cleaned_data['login'],
-            email=self.cleaned_data['email'],
-            password=self.cleaned_data['password'],
-            first_name=self.cleaned_data['nickname']
-        )
-        profile = super().save(commit=False)
-        profile.user = user
-        if commit:
-            profile.save()
+        # Обновляем данные связанного User
+        user = self.instance.user
+        user.username = self.cleaned_data['login']
+        user.email = self.cleaned_data['email']
+        user.first_name = self.cleaned_data['nickname']
+        user.save()
 
-        return profile
+        # Сохраняем профиль
+        return super().save(commit)
 
 class AskForm(forms.ModelForm):
     tags = forms.CharField(required=False, help_text="Введите теги через пробел")

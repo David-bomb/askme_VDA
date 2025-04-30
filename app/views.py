@@ -115,13 +115,14 @@ def settings(request):
         profile = request.user.profile
     except Profile.DoesNotExist:
         raise AttributeError('Profile not found.')
-
-    form = SettingsForm()
     if request.method == 'POST':
-        form = SettingsForm(request.POST)
+        form = SettingsForm(request.POST, request.FILES, instance=profile)
         # form = SettingsForm(request.POST, profile=profile)
         if form.is_valid():
             form.save()
+            return redirect(reverse('index'))  # Редирект для обновления данных
+    else:
+        form = SettingsForm(instance=profile)
     return render(request, 'settings.html', context={'form': form})
 
 @login_required(login_url=reverse_lazy('login'))

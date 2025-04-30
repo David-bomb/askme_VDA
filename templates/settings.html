@@ -7,14 +7,21 @@
             </div>
 
             <div class="mt-4">
-            <form class="mt-4" method="POST">
+            <form class="mt-4" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {%  bootstrap_form form %}
-
+                <div class=" border" style="height: 170px; width: 170px;">
+                    {% if current_user.profile.avatar %}
+                        <img src="{{ user.profile.avatar.url }}" alt="img" class="img-thumbnail">
+                    {% else %}
+                        <img src="#" alt="NoImage" class="img-thumbnail">
+                    {% endif %}
+                </div>
                 <div>
                     <button type="submit" class="btn btn-outline-secondary mt-3">Upload</button>
                 </div>
             <form>
+
 {#                <div class="mb-3 row">#}
 {#                    <label for="staticLogin" class="col-sm-2 col-form-label">Login</label>#}
 {#                    <div class="col-sm-5">#}

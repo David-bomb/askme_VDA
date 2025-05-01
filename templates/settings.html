@@ -9,14 +9,21 @@
             <div class="mt-4">
             <form class="mt-4" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {%  bootstrap_form form %}
-                <div class=" border" style="height: 170px; width: 170px;">
-                    {% if current_user.profile.avatar %}
-                        <img src="{{ user.profile.avatar.url }}" alt="img" class="img-thumbnail">
-                    {% else %}
-                        <img src="#" alt="NoImage" class="img-thumbnail">
-                    {% endif %}
-                </div>
+                {% bootstrap_field form.login %}
+                {% bootstrap_field form.email %}
+                {% bootstrap_field form.nickname %}
+                {% bootstrap_field form.avatar show_label=False %}
+                      <div class="border" style="height: 150px; width: 150px">
+                        {% if form.instance.avatar %}
+                            <img src="{{ form.instance.avatar.url }}"
+                                 alt="Avatar"
+                                 class="img-thumbnail h-100 w-100 object-fit-cover">
+                        {% else %}
+                            <div class="h-100 w-100 bg-light d-flex align-items-center justify-content-center">
+                                <span class="text-muted">No image</span>
+                            </div>
+                        {% endif %}
+                      </div>
                 <div>
                     <button type="submit" class="btn btn-outline-secondary mt-3">Upload</button>
                 </div>

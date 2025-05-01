@@ -5,8 +5,16 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-2 m-2" >
-                    <div class=" border" style="height: 100px;">
-                    <img src="#" alt="img" class="img-thumbnail">
+                    <div class="border" style="height: 100px;">
+                        {% if question.author.profile.avatar %}
+                            <img src="{{ question.author.profile.avatar.url }}"
+                                 alt="Avatar"
+                                 class="img-thumbnail h-100 w-100 object-fit-cover">
+                        {% else %}
+                            <div class="h-100 w-100 bg-light d-flex align-items-center justify-content-center">
+                                <span class="text-muted">No image</span>
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="row mt-2">
                         <div class="col-9">

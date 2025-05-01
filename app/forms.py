@@ -77,6 +77,12 @@ class SettingsForm(forms.ModelForm): # TODO передать profile в форм
     class Meta:
         model = Profile
         fields = ['avatar']
+        widgets = {
+            'avatar': forms.FileInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Выберите файл'
+            })
+        }
 
     def __init__(self, *args, **kwargs):
         super(SettingsForm, self).__init__(*args, **kwargs)

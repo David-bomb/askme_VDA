@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'index' %}">Askme_VDA</a>
+
+    <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">
+        <a href="{% url 'ask' %}" style="text-decoration: none; color: inherit;">Ask</a>
+      </button>
+    </form>
+
+    <div class="d-flex gap-3 align-items-center">
+      <div class="account__image">
+        {% if user.is_authenticated %}
+          {% if user.profile.avatar %}
+            <img src="{{ user.profile.avatar.url }}"
+                 alt="Avatar"
+                 width="40"
+                 class="rounded-circle"
+                 style="object-fit: cover;">
+          {% else %}
+            <!-- Заглушка, если аватар не загружен -->
+            <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center"
+                 style="width: 40px; height: 40px;">
+              {{ user.username|first|upper }}
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
+      <div class="account__block">
+        <div class="account__name">{{ user.username }}</div>
+        <div class="account__links d-flex gap-2 align-items-center">
+          <a class="links__settings" href="{% url 'settings' %}">Settings</a>
+          <form action="{% url 'logout' %}" method="post" class="m-0">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-link p-0 border-0" style="margin-bottom: 1.5px">Log out</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

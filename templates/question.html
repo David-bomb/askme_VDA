@@ -1,13 +1,21 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
-
+{% load bootstrap5 %}
 {% block content %}
 
             <!-- Блок вопроса -->
             <div class="row mt-4">
                 <div class="col-3">
                     <div class="border" style="height: 200px;">
-                        <img src="#" alt="img" class="img-thumbnail">
+                        {% if question.author.profile.avatar %}
+                            <img src="{{ question.author.profile.avatar.url }}"
+                                 alt="Avatar"
+                                 class="img-thumbnail h-100 w-100 object-fit-cover">
+                        {% else %}
+                            <div class="h-100 w-100 bg-light d-flex align-items-center justify-content-center">
+                                <span class="text-muted">No image</span>
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="row mt-2">
                       <div class="col-9">
@@ -21,7 +29,7 @@
                           </form>
                       </div>
                       <div style="padding-left: 0; border: 3px;" class="col">
-                          <p style="color: green; left: -10px; position: relative;">+4</p>
+                          <p style="color: green; left: -10px; position: relative;">{{ question.likes }}</p>
                       </div>
                   </div>
                 </div>
@@ -50,15 +58,24 @@
                 
                 <hr class="my-4">
             </div>
-            <div>
-                <div class="mb-3">
-                    <textarea class="form-control" id="exampleFormControlInput1" placeholder="Enter your answer" rows="4"></textarea>
-                </div>
-                
-                <div>
-                    <button type="button" class="btn btn-secondary">Answer</button>
-                </div>
-            </div>
+            {% if is_authenticated %}
+                <form class="mt-4" method="POST">
+                    {% csrf_token %}
+                    {%  bootstrap_form form %}
+                    <div>
+                        <button type="submit" class="btn btn-secondary">Answer</button>
+                    </div>
+                <form>
+{#            <div>#}
+{#                <div class="mb-3">#}
+{#                    <textarea class="form-control" id="exampleFormControlInput1" placeholder="Enter your answer" rows="4"></textarea>#}
+{#                </div>#}
+{#                #}
+{#                <div>#}
+{#                    <button type="button" class="btn btn-secondary">Answer</button>#}
+{#                </div>#}
+{#            </div>#}
+            {% endif %}
 
 
 {% endblock %}

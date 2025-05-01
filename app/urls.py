@@ -18,8 +18,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
-urlpatterns = [ # TODO чт. строка 13, надо поменять урлы через include
+urlpatterns = [
     path('', views.index, name='index'),
     path('question/<int:question_id>', views.question, name='question'),
     path('hot', views.hot, name='hot'),
@@ -29,5 +31,6 @@ urlpatterns = [ # TODO чт. строка 13, надо поменять урлы
     path('tag/<str:tag>', views.tag, name='tag'),
     path('settings', views.settings, name='settings'),
     path('404', views.Err404, name='404'),
+    path('logout', views.logout, name='logout'),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

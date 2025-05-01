@@ -6,58 +6,15 @@
             <div class="d-flex align-items-center gap-3 mt-4">
                 <h1>Registration</h1>
             </div>
-            
-{#            <div>#}
-{#                <p style="color: red;" class="mt-2">Sorry, this email address already registrated!</p>#}
-{#            </div>#}
 
             <form class="mt-4" method="POST">
                 <div class="mb-3 row">
                     {% csrf_token %}
                     {%  bootstrap_form form %}
-{#                  <label for="exampleInputLogin" class="col-sm-2 col-form-label">Login</label>#}
-{#                  <div class="col-sm-5">#}
-{#                    <input type="login" class="form-control" id="exampleInputLogin" aria-describedby="loginHelp">#}
-{#                  </div>#}
-{#                </div>#}
-{##}
-{#                <div class="mb-3 row">#}
-{#                    <label for="exampleInputEmail1" class="col-sm-2 col-form-label">Email address</label>#}
-{#                    <div class="col-sm-5">#}
-{#                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">#}
-{#                    </div>#}
-{#                  </div>#}
-{#                #}
-{#                <div class="mb-3 row">#}
-{#                    <label for="exampleInputNickName" class="col-sm-2 col-form-label">NickName</label>#}
-{#                    <div class="col-sm-5">#}
-{#                        <input type="text" class="form-control" id="exampleInputNickName" aria-describedby="nickNameHelp">#}
-{#                    </div>#}
-{#                  </div>#}
-{##}
-{#                <div class="mb-3 row">#}
-{#                  <label for="exampleInputPassword1" class="col-sm-2 col-form-label">Password</label>#}
-{#                  <div class="col-sm-5">#}
-{#                    <input type="password" class="form-control" id="exampleInputPassword1">#}
-{#                  </div>#}
-{#                </div>#}
-{##}
-{#                <div class="mb-3 row">#}
-{#                    <label for="exampleInputPassword1" class="col-sm-2 col-form-label">Repeat password</label>#}
-{#                    <div class="col-sm-5">#}
-{#                      <input type="password" class="form-control" id="exampleInputPassword1">#}
-{##}
-{#                      <div class="row">#}
-{#                        <div class="mt-3">#}
-{#                          <input class="form-control" type="file" id="formFile">#}
-{#                        </div>#}
-{#                        #}
-{#                    </div>#}
+
                     <div>
                       <button type="submit" class="btn btn-outline-secondary mt-3">
-{#                            <a href="{% url 'settings' %}" style="text-decoration: none; color: inherit;">#}
                             Save
-{#                            </a>#}
                       </button>
                     </div>
 

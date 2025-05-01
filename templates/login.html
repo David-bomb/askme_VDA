@@ -13,23 +13,9 @@
                     {% csrf_token %}
                     {%  bootstrap_form form %}
                     <button type="submit" class="btn btn-outline-secondary mt-3">
-                        {# <a href="{% url 'settings' %}" style="text-decoration: none; color: inherit;"> #}
                         Log in
-                        {# </a> #}
                     </button>
                 </div>
-
-{#                <div class="mb-3 row">#}
-{#                  <label for="username" class="col-sm-2 col-form-label">Login</label>#}
-{#                  <div class="col-sm-5">#}
-{#                    <input type="login" class="form-control" id="exampleInputLogin" name="username" aria-describedby="loginHelp">#}
-{#                  </div>#}
-{#                </div>#}
-{#                <div class="mb-3 row">#}
-{#                  <label for="password" class="col-sm-2 col-form-label">Password</label>#}
-{#                  <div class="col-sm-5">#}
-{#                    <input type="password" class="form-control" id="exampleInputPassword1" name="password">#}
-
 
                     <div class="mt-3">
                         <a href="{% url 'register' %}">Create new account</a>

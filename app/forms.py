@@ -67,12 +67,12 @@ class RegisterForm(forms.ModelForm):
         return profile
 
 
-class SettingsForm(forms.ModelForm): # TODO передать profile в форму
+class SettingsForm(forms.ModelForm):
     login = forms.CharField()
     email = forms.EmailField()
     nickname = forms.CharField()
 
-    field_order = ['login', 'email', 'nickname', 'avatar']  # поле avatar теперь последним
+    field_order = ['login', 'email', 'nickname', 'avatar']
 
     class Meta:
         model = Profile
@@ -115,7 +115,6 @@ class SettingsForm(forms.ModelForm): # TODO передать profile в форм
         return cleaned_data
 
     def save(self, commit=True):
-        # Обновляем данные связанного User
         user = self.instance.user
         user.username = self.cleaned_data['login']
         user.email = self.cleaned_data['email']
@@ -129,8 +128,8 @@ class AskForm(forms.ModelForm):
     tags = forms.CharField(required=False, help_text="Введите теги через пробел")
 
     class Meta:
-        model = Question  # Указываем модель, к которой привязана форма
-        fields = ['title', 'text', 'tags']  # Поля модели для отображения
+        model = Question
+        fields = ['title', 'text', 'tags']
 
     def clean_tags(self):
         tags = self.cleaned_data.get('tags', '')

@@ -16,7 +16,7 @@ def pagination(request, elems_per_page, data):
         paginator = Paginator(data, elems_per_page)
         page = paginator.page(page_num)
         return page
-    except Exception as e: #TODO слишком широко
+    except Exception as e:
         print(e)
         paginator = Paginator(data, elems_per_page)
         page = paginator.page(1)
@@ -48,8 +48,8 @@ def question(request, question_id):
 
     return render(request, 'question.html', context={
         'question': question_obj,
-        'answers': page.object_list,  # Use paginated answers
-        'page_obj': page,  # Pass page_obj for pagination
+        'answers': page.object_list,
+        'page_obj': page,
         'form': form,
     })
 
@@ -117,7 +117,6 @@ def settings(request):
         raise AttributeError('Profile not found.')
     if request.method == 'POST':
         form = SettingsForm(request.POST, request.FILES, instance=profile)
-        # form = SettingsForm(request.POST, profile=profile)
         if form.is_valid():
             form.save()
             return redirect(reverse('index'))  # Редирект для обновления данных

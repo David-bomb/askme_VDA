@@ -7,68 +7,27 @@
             </div>
 
             <div class="mt-4">
-            <form class="mt-4" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% bootstrap_field form.login %}
-                {% bootstrap_field form.email %}
-                {% bootstrap_field form.nickname %}
-                {% bootstrap_field form.avatar show_label=False %}
-                      <div class="border" style="height: 150px; width: 150px">
-                        {% if form.instance.avatar %}
-                            <img src="{{ form.instance.avatar.url }}"
-                                 alt="Avatar"
-                                 class="img-thumbnail h-100 w-100 object-fit-cover">
-                        {% else %}
-                            <div class="h-100 w-100 bg-light d-flex align-items-center justify-content-center">
-                                <span class="text-muted">No image</span>
-                            </div>
-                        {% endif %}
-                      </div>
-                <div>
-                    <button type="submit" class="btn btn-outline-secondary mt-3">Upload</button>
-                </div>
-            <form>
-
-{#                <div class="mb-3 row">#}
-{#                    <label for="staticLogin" class="col-sm-2 col-form-label">Login</label>#}
-{#                    <div class="col-sm-5">#}
-{#                    <textarea class="form-control" id="staticLogin" rows="1">{{ current_user.username }}</textarea>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="mb-3 row">#}
-{#                    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>#}
-{#                    <div class="col-sm-5">#}
-{#                        <textarea class="form-control" id="staticEmail" rows="1">#}
-{#                            {{ current_user.email }}#}
-{#                        </textarea>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="mb-3 row">#}
-{#                    <label for="staticNickName" class="col-sm-2 col-form-label">NickName</label>#}
-{#                    <div class="col-sm-5">#}
-{#                        <textarea class="form-control" id="staticNickName" rows="1">#}
-{#                            {{ current_user.first_name }}#}
-{#                        </textarea>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="mb-3 row">#}
-{#                    <label for="staticEmail" class="col-sm-2 col-form-label">Upload Avatar</label>#}
-{#                    <div class="col-sm-5">#}
-{#                        <div class=" border" style="height: 170px; width: 170px;">#}
-{#                            {% if current_user.avatar %}#}
-{#                            <img src="#" alt="img" class="img-thumbnail">#}
-{#                            {% else %}#}
-{#                            <img src="#" alt="img" class="img-thumbnail">#}
-{#                            {% endif %}#}
-{#                        </div>#}
-{#                        <div class="row">#}
-{#                            <div class="mt-3">#}
-{#                                <input class="form-control" type="file" id="formFile">#}
-{#                              </div>#}
-{#                        </div>#}
-{##}
-{#                    </div>#}
-{#                </div>#}
+                <form class="mt-4" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_field form.login %}
+                    {% bootstrap_field form.email %}
+                    {% bootstrap_field form.nickname %}
+                    {% bootstrap_field form.avatar show_label=False %}
+                          <div class="border" style="height: 150px; width: 150px">
+                            {% if form.instance.avatar %}
+                                <img src="{{ form.instance.avatar.url }}"
+                                     alt="Avatar"
+                                     class="img-thumbnail h-100 w-100 object-fit-cover">
+                            {% else %}
+                                <div class="h-100 w-100 bg-light d-flex align-items-center justify-content-center">
+                                    <span class="text-muted">No image</span>
+                                </div>
+                            {% endif %}
+                          </div>
+                    <div>
+                        <button type="submit" class="btn btn-outline-secondary mt-3">Upload</button>
+                    </div>
+                <form>
             </div>
 
 {% endblock %}

@@ -39,6 +39,13 @@ class QuestionManager(models.Manager):
             [:7]  # Топ-7 тегов
         )
 
+
+
+class AnswerManager(models.Manager):
+    def for_question(self, question):
+        return self.filter(question=question).order_by('-created_at')
+
+
 class Question(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='questions')
     title = models.CharField(max_length=400)
@@ -66,6 +73,8 @@ class Answer(models.Model):
     text = models.TextField()
     is_correct = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    objects = AnswerManager()
 
     @property
     def likes(self):

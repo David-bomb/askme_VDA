@@ -1,7 +1,7 @@
 from django import forms
 from django.db.models import CharField
 
-from app.models import Profile, Question, Answer
+from app.models import Profile, Question, Answer, Tag
 from django.contrib.auth.models import User
 
 
@@ -135,9 +135,30 @@ class AskForm(forms.ModelForm):
         tags = self.cleaned_data.get('tags', '')
         return [tag.strip() for tag in tags.split() if tag.strip()]
 
+    def save(self, user, commit=True):
+        question = super().save(commit=False)
+        question.author = user
+        if commit:
+            question.save()
+            self._process_tags(question)
+        return question
+
+    def _process_tags(self, question):
+        for tag_name in self.cleaned_data['tags']:
+            tag, _ = Tag.objects.get_or_create(name=tag_name)
+            question.tags.add(tag)
+
 class AnswerForm(forms.ModelForm):
     text = forms.Textarea()
 
     class Meta:
         model = Answer
         fields = ['text']
+
+    def save(self, user, question, commit=True):
+        answer = super().save(commit=False)
+        answer.author = user
+        answer.question = question
+        if commit:
+            answer.save()
+        return answer

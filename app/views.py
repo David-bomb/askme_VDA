@@ -1,8 +1,8 @@
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.urls import reverse, reverse_lazy
-
+from django.shortcuts import get_object_or_404  # Добавлен импорт
 from app.forms import LoginForm, RegisterForm, SettingsForm, AskForm, AnswerForm
 from app.models import Profile, Question, Answer, Tag, QuestionLike, AnswerLike
 from django.shortcuts import render, redirect
@@ -16,8 +16,7 @@ def pagination(request, elems_per_page, data):
         paginator = Paginator(data, elems_per_page)
         page = paginator.page(page_num)
         return page
-    except Exception as e:
-        print(e)
+    except (PageNotAnInteger, EmptyPage):
         paginator = Paginator(data, elems_per_page)
         page = paginator.page(1)
         return page
@@ -29,20 +28,14 @@ def index(request):
 
 def question(request, question_id):
     form = AnswerForm()
-    try:
-        question_obj = Question.objects.get(id=question_id)
-    except Question.DoesNotExist:
-        return render(request, '404.html')
-    answers = question_obj.answers.all().order_by('-created_at')
-    page = pagination(request, 4, list(answers))
+    question_obj = get_object_or_404(Question, id=question_id)
+    answers = Answer.objects.for_question(question_obj)
+    page = pagination(request, 4, answers)
 
     if request.method == 'POST':
         form = AnswerForm(request.POST)
         if form.is_valid():
-            answer = form.save(commit=False)
-            answer.author = request.user
-            answer.question = question_obj
-            answer.save()
+            form.save(user=request.user, question=question_obj)
 
             return redirect('question', question_id=question_id)
 
@@ -63,13 +56,8 @@ def ask(request):
     if request.method == 'POST':
         form = AskForm(request.POST)
         if form.is_valid():
-            question = form.save(commit=False)
-            question.author = request.user
-            question.save()
-            # Обрабатываем теги
-            for tag_name in form.cleaned_data['tags']:
-                tag, created = Tag.objects.get_or_create(name=tag_name)
-                question.tags.add(tag)
+            question = form.save(user=request.user)
+
             return redirect('question', question_id=question.id)
     else:
         form = AskForm()

@@ -17,19 +17,23 @@
                         {% endif %}
                     </div>
                     <div class="row mt-2">
-                        <div class="col-9">
-                            <form>
-                                <button style="border: 0px; background: none; width: 30px; padding: 0;">
+                        <div style="padding-left: 0; margin-top: 3px; margin-left: 0px" class="col-3">
+                            <p style="color: green; left: 20px; position: relative;"
+                            data-like-count="{{ question.id }}">
+                                {{ question.likes }}</p>
+                        </div>
+                        <div class="col-1">
+                            <div>
+                                <button style="border: 0px; background: none; width: 30px; padding: 0;"
+                                        data-question-id="{{ question.id }}">
                                     <img src={% static "/img/like.png" %} style="width: 35px; height: 20px;">
                                 </button>
-                                <button style="border: 0px; background: none; width: 30px; padding: 0;">
-                                    <img src={% static "/img/dislike.png" %} style="width: 35px; height: 20px;">
-                                </button>
-                            </form>
+{#                                <button style="border: 0px; background: none; width: 30px; padding: 0;">#}
+{#                                    <img src={% static "/img/dislike.png" %} style="width: 35px; height: 20px;">#}
+{#                                </button>#}
+                            </div>
                         </div>
-                        <div style="padding-left: 0; border: 3px;" class="col">
-                            <p style="color: green; left: -10px; position: relative;">{{ question.likes }}</p>
-                        </div>
+
                     </div>
                 </div>
 

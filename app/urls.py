@@ -32,5 +32,6 @@ urlpatterns = [
     path('settings', views.settings, name='settings'),
     path('404', views.Err404, name='404'),
     path('logout', views.logout, name='logout'),
+    path('<int:question_id>/like_async', views.like_async, name='like_async'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

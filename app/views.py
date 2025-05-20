@@ -1,8 +1,11 @@
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import JsonResponse
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import get_object_or_404  # Добавлен импорт
+from django.views.decorators.http import require_POST
+
 from app.forms import LoginForm, RegisterForm, SettingsForm, AskForm, AnswerForm
 from app.models import Profile, Question, Answer, Tag, QuestionLike, AnswerLike
 from django.shortcuts import render, redirect
@@ -119,3 +122,15 @@ def logout(request):
 
 def Err404(request):
     return render(request, '404.html')
+
+
+@require_POST
+@login_required
+def like_async(request, question_id):
+    question = get_object_or_404(Question, id=question_id)
+    question_like, is_created = QuestionLike.objects.get_or_create(question=question, user=request.user)
+
+    if not is_created:
+        question_like.delete()
+
+    return JsonResponse({'likes_count': question.likes})

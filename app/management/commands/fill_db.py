@@ -91,7 +91,7 @@ class Command(BaseCommand):
         question_likes = []
         for user in users:
             liked_questions = random.sample(questions, k=min(ratio * 200 // len(users), len(questions)))
-            question_likes.extend([QuestionLike(user=user, question=q) for q in liked_questions])
+            question_likes.extend([QuestionLike(user=user, question=q, value=random.choice([1, -1])) for q in liked_questions])
 
         QuestionLike.objects.bulk_create(question_likes, batch_size=10000)
 
@@ -103,4 +103,4 @@ class Command(BaseCommand):
 
         AnswerLike.objects.bulk_create(answer_likes, batch_size=10000)
 
-        self.stdout.write(self.style.SUCCESS('База данных заполнена!'))
+        self.stdout.write(self.style.SUCCESS('Корзина отправлена!'))

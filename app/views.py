@@ -1,6 +1,7 @@
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Sum
 from django.http import JsonResponse
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import get_object_or_404  # Добавлен импорт
@@ -127,10 +128,43 @@ def Err404(request):
 @require_POST
 @login_required
 def like_async(request, question_id):
-    question = get_object_or_404(Question, id=question_id)
-    question_like, is_created = QuestionLike.objects.get_or_create(question=question, user=request.user)
+    try:
+        question = get_object_or_404(Question, id=question_id)
+        action = request.POST.get('action')  # 'like' или 'dislike'
+        value = 1 if action == 'like' else -1
 
-    if not is_created:
-        question_like.delete()
+        # Обновить или создать запись
+        vote = QuestionLike.update_or_create_vote(
+            user=request.user,
+            question=question,
+            value=value
+        )
 
-    return JsonResponse({'likes_count': question.likes})
+        # Пересчитать общий рейтинг вопроса
+        total_likes = QuestionLike.objects.filter(question=question).aggregate(
+            Sum('value')
+        )['value__sum'] or 0
+
+        return JsonResponse({'total_likes': total_likes})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+@require_POST
+@login_required
+def answer_like_async(request, answer_id):
+    try:
+        answer = get_object_or_404(Answer, id=answer_id)
+        action = request.POST.get('action')  # 'like' или 'dislike'
+        value = 1 if action == 'like' else -1
+
+        AnswerLike.update_or_create_vote(
+            user=request.user,
+            answer=answer,
+            value=value
+        )
+
+        answer.refresh_from_db()
+        return JsonResponse({'total_likes': answer.total_likes})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

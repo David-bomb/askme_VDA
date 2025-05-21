@@ -17,23 +17,27 @@
                         {% endif %}
                     </div>
                     <div class="row mt-2">
-                        <div style="padding-left: 0; margin-top: 3px; margin-left: 0px" class="col-3">
-                            <p style="color: green; left: 20px; position: relative;"
-                            data-like-count="{{ question.id }}">
-                                {{ question.likes }}</p>
+                        <div class="col-9">
+                            <button
+                                     style="border: 0px; background: none; width: 30px; padding: 0;"
+                                data-question-id="{{ question.id }}"
+                                data-action-type="like"
+                                class="btn-like">
+                                <img src="{% static '/img/like.png' %}" style="width: 35px; height: 20px;">
+                            </button>
+                            <button
+                                     style="border: 0px; background: none; width: 30px; padding: 0;"
+                                data-question-id="{{ question.id }}"
+                                data-action-type="dislike"
+                                class="btn-dislike">
+                                <img src="{% static '/img/dislike.png' %}" style="width: 35px; height: 20px;">
+                            </button>
                         </div>
-                        <div class="col-1">
-                            <div>
-                                <button style="border: 0px; background: none; width: 30px; padding: 0;"
-                                        data-question-id="{{ question.id }}">
-                                    <img src={% static "/img/like.png" %} style="width: 35px; height: 20px;">
-                                </button>
-{#                                <button style="border: 0px; background: none; width: 30px; padding: 0;">#}
-{#                                    <img src={% static "/img/dislike.png" %} style="width: 35px; height: 20px;">#}
-{#                                </button>#}
-                            </div>
+                        <div style="padding-left: 0; margin-top: 3px; margin-left: 0px" class="col">
+                            <p style="left: 0px; position: relative; margin-top: -3px"
+                            data-total-likes="{{ question.id }}">
+                                {{ question.total_likes }}</p>
                         </div>
-
                     </div>
                 </div>
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Sum
 
 
 # Профиль (1:1 с User)
@@ -56,6 +57,10 @@ class Question(models.Model):
     objects = QuestionManager()
 
     @property
+    def total_likes(self):
+        return self.questionlike_set.aggregate(Sum('value'))['value__sum'] or 0
+
+    @property
     def likes(self):
         return self.questionlike_set.count()
 
@@ -77,6 +82,10 @@ class Answer(models.Model):
     objects = AnswerManager()
 
     @property
+    def total_likes(self):
+        return self.answerlike_set.aggregate(Sum('value'))['value__sum'] or 0
+
+    @property
     def likes(self):
         return self.answerlike_set.count()
 
@@ -88,6 +97,7 @@ class Answer(models.Model):
 class QuestionLike(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    value = models.SmallIntegerField(default=1)  # 1 for like, -1 for dislike
 
     class Meta:
         unique_together = ('user', 'question')
@@ -95,11 +105,36 @@ class QuestionLike(models.Model):
             models.Index(fields=['question']),
         ]
 
+    @classmethod
+    def update_or_create_vote(cls, user, question, value):
+        obj, created = cls.objects.update_or_create(
+            user=user,
+            question=question,
+            defaults={'value': value}
+        )
+        if not created and obj.value == value:
+            obj.delete()  # Удалить, если повторное нажатие на ту же кнопку
+            return None
+        return obj
+
 
 # Лайки ответов
 class AnswerLike(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    value = models.SmallIntegerField(default=1)  # 1 for like, -1 for dislike
 
     class Meta:
         unique_together = ('user', 'answer')
+
+    @classmethod
+    def update_or_create_vote(cls, user, answer, value):
+        obj, created = cls.objects.update_or_create(
+            user=user,
+            answer=answer,
+            defaults={'value': value}
+        )
+        if not created and obj.value == value:
+            obj.delete()
+            return None
+        return obj

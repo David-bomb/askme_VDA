@@ -17,21 +17,28 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div class="row mt-2">
-                      <div class="col-9">
-                          <form>
-                              <button style="border: 0; background: none; width: 30px; padding: 0;">
-                                  <img src="../static/img/like.png" style="width: 35px; height: 20px;" alt="like">
-                              </button>
-                              <button style="border: 0; background: none; width: 30px; padding: 0;">
-                                  <img src="../static/img/dislike.png" style="width: 35px; height: 20px;" alt="dislike">
-                              </button>
-                          </form>
-                      </div>
-                      <div style="padding-left: 0; border: 3px;" class="col">
-                          <p style="color: green; left: -10px; position: relative;">{{ question.likes }}</p>
-                      </div>
-                  </div>
+                        <div class="row mt-2">
+                            <div class="col-9">
+                                <button
+                                    style="border: 0; background: none; width: 30px; padding: 0;"
+                                    data-question-id="{{ question.id }}"
+                                    data-action-type="like">
+                                    <img src="{% static '/img/like.png' %}" style="width: 35px; height: 20px;" alt="like">
+                                </button>
+                                <button
+                                    style="border: 0; background: none; width: 30px; padding: 0;"
+                                    data-question-id="{{ question.id }}"
+                                    data-action-type="dislike">
+                                    <img src="{% static '/img/dislike.png' %}" style="width: 35px; height: 20px;" alt="dislike">
+                                </button>
+                            </div>
+                            <div style="padding-left: 0; border: 3px;" class="col">
+                                <p style="color: green; left: -10px; position: relative;"
+                                   data-total-likes="{{ question.id }}">
+                                    {{ question.total_likes }}
+                                </p>
+                            </div>
+                        </div>
                 </div>
                 
                 <div class="card col" style="border: 0;">

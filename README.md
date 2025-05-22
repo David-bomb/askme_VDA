@@ -30,3 +30,7 @@
 
 1) Все формы (авторизация, вход, настройки, задавание вопроса, ответ на вопрос) находятся в <a href="https://github.com/David-bomb/askme_VDA/tree/main/app/forms.py">forms.py</a>
 2) Навигационная панель также изменяется в зависимости от юзера: авторизован он или нет. "Шапка" для авторизированного пользователя находится <a href="https://github.com/David-bomb/askme_VDA/tree/main/templates/components/base_reg_nav.html">здесь</a>
+
+## ДЗ№5
+Еще в прошлом ДЗ была реализована система загрузки картинок. Форма регистрации есть в указанном выше forms.py.
+Также была реализована система лайков и отметки вопроса как правильного через AJAX запросы, весь код JS записан <a href="https://github.com/David-bomb/askme_VDA/blob/main/static/app.js">app.js</a>. Логика работы с AJAX была описана в <a href="https://github.com/David-bomb/askme_VDA/tree/main/app/views.py">views.py</a>.

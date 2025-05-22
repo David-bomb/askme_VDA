@@ -7,7 +7,7 @@
                 <h1>Registration</h1>
             </div>
 
-            <form class="mt-4" method="POST">
+            <form class="mt-4" method="POST" enctype="multipart/form-data"> <!-- Добавлено -->
                 <div class="mb-3 row">
                     {% csrf_token %}
                     {%  bootstrap_form form %}

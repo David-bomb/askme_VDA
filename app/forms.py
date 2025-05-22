@@ -61,6 +61,7 @@ class RegisterForm(forms.ModelForm):
         )
         profile = super().save(commit=False)
         profile.user = user
+        profile.avatar = self.cleaned_data.get('avatar')  # Добавлено сохранение аватарки
         if commit:
             profile.save()
 

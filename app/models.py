@@ -97,7 +97,7 @@ class Answer(models.Model):
 class QuestionLike(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    value = models.SmallIntegerField(default=1)  
+    value = models.SmallIntegerField(default=1)
 
     class Meta:
         unique_together = ('user', 'question')

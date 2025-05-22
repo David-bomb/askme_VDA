@@ -97,7 +97,7 @@ def login(request):
 def register(request):
     form = RegisterForm()
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = RegisterForm(request.POST, request.FILES)
         if form.is_valid():
             profile = form.save()
             auth.login(request, profile.user)

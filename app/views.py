@@ -12,8 +12,6 @@ from app.models import Profile, Question, Answer, Tag, QuestionLike, AnswerLike
 from django.shortcuts import render, redirect
 
 
-# Create your views here.
-
 def pagination(request, elems_per_page, data):
     try:
         page_num = int(request.GET.get('page', 1))
@@ -24,6 +22,7 @@ def pagination(request, elems_per_page, data):
         paginator = Paginator(data, elems_per_page)
         page = paginator.page(1)
         return page
+
 
 def index(request):
     page = pagination(request, 5, Question.objects.all())
@@ -50,6 +49,7 @@ def question(request, question_id):
         'form': form,
     })
 
+
 def hot(request):
     page = pagination(request, 5, Question.objects.best())
     return render(request, 'hot.html', context={'questions': page.object_list, 'page_obj': page})
@@ -68,6 +68,7 @@ def ask(request):
 
     return render(request, 'ask.html', {'form': form})
 
+
 def tag(request, tag):
     tag_obj = NotImplemented
     try:
@@ -77,6 +78,7 @@ def tag(request, tag):
     questions = tag_obj.questions.all().order_by('-created_at')
     page = pagination(request, 5, questions)
     return render(request, 'tag.html', context={'tag': tag, 'page_obj': page, 'questions': page.object_list})
+
 
 def login(request):
     form = LoginForm()
@@ -91,6 +93,7 @@ def login(request):
                 form.add_error(field =None, error="User not found")
     return render(request, 'login.html', context={'form': form})
 
+
 def register(request):
     form = RegisterForm()
     if request.method == 'POST':
@@ -100,6 +103,7 @@ def register(request):
             auth.login(request, profile.user)
             return redirect(reverse('index'))
     return render(request, 'register.html', context={'form': form})
+
 
 @login_required(login_url=reverse_lazy('login'))
 def settings(request):
@@ -115,6 +119,7 @@ def settings(request):
     else:
         form = SettingsForm(instance=profile)
     return render(request, 'settings.html', context={'form': form})
+
 
 @login_required(login_url=reverse_lazy('login'))
 def logout(request):
@@ -134,7 +139,7 @@ def like_async(request, question_id):
         value = 1 if action == 'like' else -1
 
         # Обновить или создать запись
-        vote = QuestionLike.update_or_create_vote(
+        QuestionLike.update_or_create_vote(
             user=request.user,
             question=question,
             value=value
@@ -166,5 +171,22 @@ def answer_like_async(request, answer_id):
 
         answer.refresh_from_db()
         return JsonResponse({'total_likes': answer.total_likes})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+@require_POST
+@login_required
+def mark_answer_correct(request, answer_id):
+    try:
+        answer = get_object_or_404(Answer, id=answer_id)
+        if request.user != answer.question.author:
+            return JsonResponse({'error': 'Only question author can mark answers'}, status=403)
+
+        # Инвертируем значение is_correct
+        answer.is_correct = not answer.is_correct
+        answer.save()
+        return JsonResponse({'is_correct': answer.is_correct})
+
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)

@@ -23,8 +23,10 @@ function getCookie(name) {
 
 const csrftoken = getCookie('csrftoken');
 const likeButtons = document.querySelectorAll('button[data-action-type]');
-console.log(csrftoken)
+// console.log(csrftoken) // чисто для дебага, в проде убирать
 
+
+//likes
 for (const item of likeButtons) {
     item.addEventListener('click', (e) => {
         e.preventDefault();
@@ -65,12 +67,11 @@ for (const item of likeButtons) {
         fetch(request).then(response => {
             response.json().then((data) => {
                 const counter = document.querySelector(selector);
-                console.log('Fetching!')
+                // console.log('Fetching!')
                 if (counter) {
                     counter.textContent = data.total_likes;
-                    // Динамическое изменение цвета
                     counter.style.color = data.total_likes >= 0 ? 'green' : 'red';
-                    console.log('Тык!')
+                    // console.log('Тык!')
                 }
                 // console.log(counter)
                 // counter.textContent = data.total_likes;
@@ -79,3 +80,38 @@ for (const item of likeButtons) {
         });
     });
 }
+
+//is_correct
+document.querySelectorAll('.form-check-input[data-answer-id]').forEach(checkbox => {
+    checkbox.addEventListener('change', function(e) {
+        const answerId = this.dataset.answerId;
+        const isChecked = this.checked;
+
+        const formData = new URLSearchParams();
+        formData.append('csrfmiddlewaretoken', csrftoken);
+
+        fetch(`/answer/${answerId}/mark_correct`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrftoken,
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: formData,
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+                this.checked = !isChecked; // Возвращаем предыдущее состояние
+            } else {
+                this.checked = data.is_correct;
+                this.parentElement.style.color = data.is_correct ? 'green' : 'inherit';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            this.checked = !isChecked;
+        });
+    });
+});

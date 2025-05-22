@@ -97,7 +97,7 @@ class Answer(models.Model):
 class QuestionLike(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    value = models.SmallIntegerField(default=1)  # 1 for like, -1 for dislike
+    value = models.SmallIntegerField(default=1)  
 
     class Meta:
         unique_together = ('user', 'question')
@@ -113,7 +113,7 @@ class QuestionLike(models.Model):
             defaults={'value': value}
         )
         if not created and obj.value == value:
-            obj.delete()  # Удалить, если повторное нажатие на ту же кнопку
+            obj.delete()
             return None
         return obj
 
@@ -122,7 +122,7 @@ class QuestionLike(models.Model):
 class AnswerLike(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
-    value = models.SmallIntegerField(default=1)  # 1 for like, -1 for dislike
+    value = models.SmallIntegerField(default=1)
 
     class Meta:
         unique_together = ('user', 'answer')
@@ -138,3 +138,5 @@ class AnswerLike(models.Model):
             obj.delete()
             return None
         return obj
+
+

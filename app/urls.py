@@ -17,5 +17,6 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     path('<int:question_id>/like_async', views.like_async, name='like_async'),
     path('answer/<int:answer_id>/like_async', views.answer_like_async, name='answer_like_async'),
+    path('answer/<int:answer_id>/mark_correct', views.mark_answer_correct, name='mark_correct'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

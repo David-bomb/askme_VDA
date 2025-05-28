@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
+from django.db.models.functions import Coalesce
 
 
 # Профиль (1:1 с User)
@@ -26,10 +27,10 @@ class QuestionManager(models.Manager):
     #     return self.order_by('-created_at')
 
     def best(self):
-        # Сортировка по количеству лайков (популярные сначала)
         return self.annotate(
-            total_likes=models.Count('questionlike', distinct=True),
-        ).order_by('-total_likes')
+            # Суммируем значения value из связанных лайков
+            total_value=Coalesce(Sum('questionlike__value'), 0)
+        ).order_by('-total_value')
 
     @staticmethod
     def get_popular_tags():

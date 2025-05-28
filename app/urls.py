@@ -4,7 +4,7 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
-urlpatterns = [
+urlpatterns = ([
     path('', views.index, name='index'),
     path('question/<int:question_id>', views.question, name='question'),
     path('hot', views.hot, name='hot'),
@@ -19,4 +19,8 @@ urlpatterns = [
     path('answer/<int:answer_id>/like_async', views.answer_like_async, name='answer_like_async'),
     path('answer/<int:answer_id>/mark_correct', views.mark_answer_correct, name='mark_correct'),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+])
+
+#if settings.DEBUG:
+#    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

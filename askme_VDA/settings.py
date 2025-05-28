@@ -17,11 +17,13 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static/'
 
-STATICFILES_DIRS = [
+if DEBUG:
+    STATICFILES_DIRS = [
 
-    os.path.join(BASE_DIR, 'static'),
-]
+        os.path.join(BASE_DIR, 'static_dev'),
+    ]
 
 # Application definition
 
@@ -121,9 +123,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "static/"
-MEDIA_URL = '/avatars/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'avatars')
+# STATIC_URL = "static/"
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CSRF_COOKIE_HTTPONLY = False  # Разрешить JavaScript читать куки CSRF
 CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'  # Разрешить передачу токена в заголовке X-CSRFToken
@@ -132,3 +134,5 @@ CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'  # Разрешить передачу т�
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CACHE_MIDDLEWARE_SECONDS = 600  # Время кэширования в секундах (10 минут)

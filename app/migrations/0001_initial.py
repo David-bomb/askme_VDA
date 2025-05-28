@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "avatar",
-                    models.ImageField(blank=True, null=True, upload_to="avatars/"),
+                    models.ImageField(blank=True, null=True, upload_to="media/"),
                 ),
                 (
                     "user",

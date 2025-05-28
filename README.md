@@ -3,7 +3,7 @@
 ## ДЗ№1
 Все страницы прописаны в папке <a href="https://github.com/David-bomb/askme_VDA/edit/main/templates/">templates</a>
 
-Все ресурсы (в том числе и bootstrap) расположены в папке <a href="https://github.com/David-bomb/askme_VDA/edit/main/tratic/">static</a>
+Все ресурсы (в том числе и bootstrap) расположены в папке <a href="https://github.com/David-bomb/askme_VDA/edit/main/static/">static</a>
 
 ## ДЗ№2
 Была реализована маршрутизация. Все элементы лежат в подпапках директории <a href="https://github.com/David-bomb/askme_VDA/tree/main/templates">templates</a>, а точнее:

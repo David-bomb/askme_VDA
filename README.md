@@ -34,3 +34,10 @@
 ## ДЗ№5
 Еще в прошлом ДЗ была реализована система загрузки картинок. Форма регистрации есть в указанном выше forms.py.
 Также была реализована система лайков и отметки вопроса как правильного через AJAX запросы, весь код JS записан <a href="https://github.com/David-bomb/askme_VDA/blob/main/static/app.js">app.js</a>. Логика работы с AJAX была описана в <a href="https://github.com/David-bomb/askme_VDA/tree/main/app/views.py">views.py</a>.
+
+## ДЗ№6
+Добавил работу с nginx и gunicorn, для последнего открыт <a href="https://github.com/David-bomb/askme_VDA/blob/main/gunicorn_config.py">конфиг</a>
+
+Nginx поддерживает кеширование.
+
+Файл <a href="https://github.com/David-bomb/askme_VDA/blob/main/simple_wsgi.py">simple_wsgi.py</a> - это простой wsgi скрипт, который надо было написать по заданию.
